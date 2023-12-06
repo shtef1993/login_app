@@ -3,11 +3,10 @@ import UserForm from './komponente/obrazac';
 import UserDetails from './komponente/detalji';
 
 function App() {
-  const [username, setUsername] = useState('');
   const [userData, setUserData] = useState(null);
 
-  const handleFormSubmit = async (username) => {
-    const userResponse = await fetch(`https://api.github.com/users/${username}`);
+  const handleFormSubmit = async (inputUsername) => {
+    const userResponse = await fetch(`https://api.github.com/users/${inputUsername}`);
 
     if (!userResponse.ok) {
       console.error('Error fetching user data');
@@ -17,7 +16,7 @@ function App() {
 
     const user = await userResponse.json();
 
-    const reposResponse = await fetch(`https://api.github.com/users/${username}/repos`);
+    const reposResponse = await fetch(`https://api.github.com/users/${inputUsername}/repos`);
 
     if (!reposResponse.ok) {
       console.error('Error fetching user repositories');
@@ -37,7 +36,6 @@ function App() {
   };
 
   const handleReset = () => {
-    setUsername('');
     setUserData(null);
   };
 
